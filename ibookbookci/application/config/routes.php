@@ -39,6 +39,8 @@
 */
 
 $route['default_controller'] = "welcome";
+$route['search/(:any)'] = 'search/key/$1';
+$route['search'] = 'search/key';
 $route['404_override'] = '';
 
 

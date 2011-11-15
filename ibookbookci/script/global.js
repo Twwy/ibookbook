@@ -23,24 +23,25 @@ $i(document).ready(function(){
 	
 	$i('.header-search-input').keypress(function(event){
 		if(event.which == 13){
-			location.href = $i('#site').val() + 'search/key=' + $i(".header-search-input").val(); 
+			$i('.header-search-icon').click();
 		}
-	});
+	});  //捕获回车键进行搜索
 	
-	$i('.header-search-icon').click(function(){
+	$i('.header-search-icon').click(function searchClick(){
 		var siteUrl = hideVars.configData.site + 'search';
 		if(location.href.search(siteUrl) == 0){
-			search($i(".header-search-input").val());
-			//alert('在search页，直接搜索');
+			$i(".search-left-result").remove();					//针对已搜索过的,结果清空
+			$i("#readyNum").html('');   						//针对已搜索过的,more处计数清空
+			hideVars.key = $i(".header-search-input").val();  	//在隐藏变量中放置搜索关键词
+			search(hideVars.key);								//在search页，直接搜索
 		}else{
-			alert('跳转');
+			window.location.href = hideVars.configData.site + "search/" + $i(".header-search-input").val();
 		}
-		//location.href = $i('#site').val() + 'search/key=' + $i(".header-search-input").val(); 
 	});
 	/*</搜索框>*/
 	
 	
-	$i('.header-login').click(function(){
+	/*$i('.header-login').click(function(){
 		userLogin();
 	});
 	
@@ -59,7 +60,7 @@ $i(document).ready(function(){
 				}
 			}
 		);
-	});
+	});*/
 	
 });
 
@@ -71,20 +72,17 @@ function cutstr(str, len){  //字符串切割函数
 	for(i = 0; i < str_len ;i++){  
 		a = str.charAt(i);  
 		str_length++;  
-		if(escape(a).length > 4)  
-		{   
+		if(escape(a).length > 4){   
 			str_length++;  
 		}  
 		str_cut = str_cut.concat(a);  
-		if(str_length >= len)  
-		{  
-			str_cut = str_cut.concat("<span class=\"show-more\">...(更多)</span>");  
+		if(str_length >= len){
 			return str_cut;  
 		}  
     }
 	if(str_length<len) return str; 
 } 
-
+/*
 function userLogin(){
 	$i.dialog({
 		id: 'loginWindowDialog',
@@ -95,4 +93,4 @@ function userLogin(){
 	});
 	$i('#headerLoginInfo').html('');
 	$i("#headerLoginWindow").show();
-}
+}*/

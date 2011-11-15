@@ -142,7 +142,6 @@ class douban {
 		}
 		if(empty($result['title'])) $result['title'] = $value[$index['TITLE'][0]]['value'];
 		return $result;
-
 	}
 	
 }
